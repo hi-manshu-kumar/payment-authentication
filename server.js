@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 1234;
-const stripe = require('stripe')('sk_test_sFnF7jqAz7apHa3dcFeYW7Au');
+const keys = require('./config/keys');
+const stripe = require('stripe')('keys.stripeSecretKey');
 const exphbs = require('express-handlebars');
 
 app = express();
@@ -19,7 +20,9 @@ app.use(express.static(`${__dirname}/public`));
 
 // index route
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', {
+        stripePublishableKey: keys.stripePublishableKey 
+    });
 });
 
 // app.get('/success', (req, res) => {
