@@ -1,20 +1,25 @@
 <section class="py-2">
     <div class="row">
-        <div class="col-md-r text-center">
+        <div class="col-md-6">
             <h1 class="display-3 mt-3 pt-5">
-                Web Development Ebook
+                Ebook Sale Today
             </h1>
-            <p class="lead"> Learn web Development front to back</p>
+            <p class="lead"> Learn web Development MEAN/MERN stack</p>
             <form action="/charge" method="POST">
-                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{stripePublishableKey}}" data-amount="2500"
-                    data-name="Web Development Ebook" data-description="Ebook written by Brad Traversy" data-image="/img/marketplace.png"
+                <script
+                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="{{stripePublishableKey}}"
+                    data-amount="2500"
+                    data-name="Web Ebook"
+                    data-description="A book for web development"
+                    data-image="/img/marketplace.png"
                     data-locale="auto">
-                    </script>
+                </script>
                 <script>
                     // Hide default stripe button
                     document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
                 </script>
-                <button type="submit" class="btn btn-outline-dark text-white btn-lg">Purchase For $25</button>
+                <button type="submit" class="btn btn-outline-dark text-blue btn-lg">Purchase it for $10</button>
             </form>
         </div>
         <div class="col-md-6">
