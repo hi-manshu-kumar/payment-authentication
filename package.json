@@ -1,0 +1,27 @@
+{
+  "name": "payment-authentication",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hi-manshu-kumar/payment-authentication.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hi-manshu-kumar/payment-authentication/issues"
+  },
+  "homepage": "https://github.com/hi-manshu-kumar/payment-authentication#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "stripe": "^6.12.1"
+  }
+}
