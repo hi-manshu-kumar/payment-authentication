@@ -1,29 +1,33 @@
-<section class="py-2">
+
+
+<section>
+    <h1>E-Notes Sale</h1>
+    <hr>
     <div class="row">
         <div class="col-md-6">
-            <h1 class="display-3 mt-3 pt-5">
-                Ebook Sale Today
-            </h1>
-            <p class="lead"> Learn web Development MEAN/MERN stack</p>
-            <form action="/charge" method="POST">
-                <script
-                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                    data-key="{{stripePublishableKey}}"
-                    data-amount="2500"
-                    data-name="Web Ebook"
-                    data-description="A book for web development"
-                    data-image="/img/marketplace.png"
-                    data-locale="auto">
-                </script>
-                <script>
-                    // Hide default stripe button
-                    document.getElementsByClassName('stripe-button-el')[0].style.display = 'none';
-                </script>
-                <button type="submit" class="btn btn-outline-dark text-blue btn-lg">Purchase it for 10$</button>
-            </form>
+            <p>Selling personal notes that i made during my web development learning.</p>
         </div>
         <div class="col-md-6">
             <img src="/img/rsz_book.png" alt="" class="img-fluid">
         </div>
+    </div>
+    
+    <div>
+        <form action="/charge" method="POST">
+            <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="{{stripePublishableKey}}"
+                data-amount="1000"
+                data-name="E-Notes"
+                data-description="Notes for web development"
+                data-image="/img/marketplace.png"
+                data-locale="auto">
+            </script>
+            <script>
+                document.getElementsByClassName("stripe-button-el")[0].hidden = true;
+            </script>
+                <button type="submit" class="btn btn-outline-dark text-blue btn-lg center pay-button">Purchase it for 10$</button>
+        </form>
+
     </div>
 </section>
