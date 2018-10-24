@@ -19,12 +19,9 @@ app.use(express.static(`${__dirname}/public`));
 
 // index route
 app.get('/', (req, res) => {
-    console.log("req is", typeof req);
-    console.log("res is", typeof res, res instanceof Array );
     res.render('index',{
         stripePublishableKey: keys.stripePublishableKey
     }); 
-    
 }); 
 
 // app.get('/success', (req, res) => {
