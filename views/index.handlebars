@@ -26,8 +26,11 @@
             <script>
                 document.getElementsByClassName("stripe-button-el")[0].hidden = true;
             </script>
-                <button type="submit" class="btn btn-outline-dark text-blue btn-lg center pay-button">Purchase it for 10$</button>
-        </form>
+                <button type="submit" class="btn btn-outline-dark text-blue btn-lg center pay-button"><i class="fab fa-stripe"></i> Purchase it for 10$</button>
 
+        </form>
+        <form action="/pay" method="POST">
+                <button type="submit" class="btn btn-outline-dark text-blue btn-lg center pay-button"><i class="fab fa-cc-paypal"></i> Purchase it for 10$</button>
+        </form>
     </div>
 </section>
