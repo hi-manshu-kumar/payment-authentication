@@ -23,6 +23,7 @@
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "paypal-rest-sdk": "^1.8.1",
+    "paytm-sdk": "0.0.2",
     "stripe": "^6.12.1"
   }
 }

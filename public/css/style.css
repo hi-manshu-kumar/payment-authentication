@@ -39,3 +39,12 @@ body {
     margin-top: 9%;
     margin-bottom: 2%;
 }
+
+button img{
+    width: 1.5em;
+    margin-left: -4px;
+}
+
+i:first-of-type{
+    margin-bottom: -4px;
+}
