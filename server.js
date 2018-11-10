@@ -8,6 +8,12 @@ const app = express();
 const paypal = require('paypal-rest-sdk');
 const Paytm = require('paytm-sdk');
 const paytm = new Paytm('keys.merchantkey');
+const cors = require("cors");
+const ejs = require("ejs");
+
+const {initPayment, responsePayment} = require("./paytm/services/index");
+
+app.use(cors());
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
@@ -28,7 +34,7 @@ app.use(express.static(__dirname+ '/public'));
 
 // index route
 app.get('/', (req, res) => {
-    res.render('index',{
+    res.render('index.handlebars',{
         stripePublishableKey: keys.stripePublishableKey
     }); 
 
@@ -50,7 +56,7 @@ app.post('/charge', (req, res) => {
         description: 'Web Development ebook',
         currency: 'USD',
         customer:customer.id  
-    })).then(charge => res.render('success'));
+    })).then(charge => res.render('success.handlebars'));
 });
 
 app.post('/pay', (req, res) => {
@@ -114,43 +120,44 @@ app.get('/success', (req, res) => {
             throw error;
         } else {
             console.log(JSON.stringify(payment));   
-            res.render("success");
+            res.render("success.handlebars");
         }
     });
 });
+app.use(express.static(__dirname + "/views"));
+app.set("view engine", "ejs");
 
 app.post("/paytm", (req, res) => {
-    var params 						= {};
-	params['MID'] 					=keys.merchantkey;//by paytm
-	params['WEBSITE']				= 'WEBSTAGING';//WEBSTAGING
-	params['CHANNEL_ID']			= 'WEB';
-	params['INDUSTRY_TYPE_ID']	= 'Retail';
-	params['ORDER_ID']			= 'TEST_'  + new Date().getTime();
-	params['CUST_ID'] 			= 'Customer001';
-	params['TXN_AMOUNT']		= '720.00';
-	params['CALLBACK_URL']		= 'https://pg-staging.paytm.in/MerchantSite/bankResponse';
-	params['EMAIL']				= 'himanshu.kumar394@gmail.com';
-	params['MOBILE_NO']			= '7011487692';
-
-	checksum_lib.genchecksum(params, keys.merchantkey , function (err, checksum) {
-
-		var txn_url = "https://securegw-stage.paytm.in/theia/processTransaction"; // for staging
-		// var txn_url = "https://securegw.paytm.in/theia/processTransaction"; // for prod
-		
-		var form_fields = "";
-		for(var x in params){
-			form_fields += "<input type='hidden' name='"+x+"' value='"+params[x]+"' >";
-		}
-		form_fields += "<input type='hidden' name='CHECKSUMHASH' value='"+checksum+"' >";
-
-		res.writeHead(200, {'Content-Type': 'text/html'});
-		res.write('<html><head><title>Merchant Checkout Page</title></head><body><center><h1>Please do not refresh this page...</h1></center><form method="post" action="'+txn_url+'" name="f1">'+form_fields+'</form><script type="text/javascript">document.f1.submit();</script></body></html>');
-		res.end();
-	});
+   res.redirect("/paywithpaytm?amount=700");
 })
 
+app.get("/paywithpaytm", (req, res) => {
+    initPayment(req.query.amount).then(
+        success => {
+            res.render("paytmRedirect.ejs", {
+                resultData: success,
+                paytmFinalUrl: 'https://securegw-stage.paytm.in/theia/processTransaction'
+            });
+        },
+        error => {
+            res.send(error);
+        }
+    );
+});
+
+app.post("/paywithpaytmresponse", (req, res) => {
+    responsePayment(req.body).then(
+        success => {
+            res.render("success.handlebars");
+        },
+        error => {
+            res.send(error);
+        }
+    );
+});
+
 app.get('/cancel', (req, res) => {
-    res.render("error");
+    res.render("error.handlebars");
 });
 
 const port = process.env.PORT || 3000;
@@ -159,3 +166,7 @@ app.listen(port, () => {
     console.log("--connection open--");
     console.log(`server running on port ${port}.....`);
 }); 
+
+// himankpersonal@gmail.com priyanshu
+//42424242442424
+//7777777777 489871
