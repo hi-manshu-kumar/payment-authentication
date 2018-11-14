@@ -21,6 +21,14 @@ paypal.configure({
     'client_secret': keys.client_secret
   });
 
+if(process.env.BASE_URL){
+    var returnUrl = `${process.env.BASE_URL}/success`;
+    var cancelUrl = `${process.env.BASE_URL}/cancel`;
+} else{
+    var returnUrl = "http://localhost:3000/success";
+    var cancelUrl = "http://localhost:3000/error";
+}
+
 //Handlebars Middleware
 app.engine('handlebars', handlebar({ defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
@@ -66,8 +74,8 @@ app.post('/pay', (req, res) => {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": "http://localhost:3000/success.handlebars",
-            "cancel_url": "http://localhost:3000/error"
+            "return_url":  returnUrl,
+            "cancel_url": cancelUrl
         },
         "transactions": [{
             "item_list": {
