@@ -16,14 +16,14 @@ const {initPayment, responsePayment} = require("./paytm/services/index");
 app.use(cors());
 
 paypal.configure({
-    'mode': 'sandbox', //sandbox or live
-    'client_id': keys.client_id,
+    'mode'         : 'sandbox',          //sandbox or live
+    'client_id'    : keys.client_id,
     'client_secret': keys.client_secret
   });
 
-if(process.env.BASE_URL){
-    var returnUrl = `${process.env.BASE_URL}/success`;
-    var cancelUrl = `${process.env.BASE_URL}/cancel`;
+if(process.env.NODE_ENV === 'production'){
+    var returnUrl = `${keys.BASE_URL}/success`;
+    var cancelUrl = `${keys.BASE_URL}/cancel`;
 } else{
     var returnUrl = "http://localhost:3000/success";
     var cancelUrl = "http://localhost:3000/error";
